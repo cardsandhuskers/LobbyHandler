@@ -1,0 +1,15 @@
+name: LobbyPlugin
+version: '${project.version}'
+main: io.github.cardsandhuskers.lobbyplugin.LobbyPlugin
+api-version: 1.19
+depend: [PlayerPoints, PlaceholderAPI]
+commands:
+  setLobby:
+    description: sets lobby location
+    usage: /<command>
+  countVotes:
+    description: counts votes
+    usage: /<command>
+  startEvent:
+    description: starts timers
+    usage: /<command>
