@@ -5,6 +5,7 @@ import io.github.cardsandhuskers.lobbyplugin.objects.Countdown;
 import io.github.cardsandhuskers.lobbyplugin.objects.LobbyInventory;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import static io.github.cardsandhuskers.lobbyplugin.LobbyPlugin.*;
@@ -20,18 +21,26 @@ public class LobbyStageHandler {
         System.out.println("VOTING TIMER INIT");
     }
 
+    /**
+     * Voting timer, for when players are allowed to vote
+     */
     public void initVotingTimer() {
         LobbyInventory lobbyInv = new LobbyInventory();
         Countdown votingTimer = new Countdown((JavaPlugin)plugin,
-                15,
+                //should be 45
+                plugin.getConfig().getInt("VotingTime"),
                 ()-> {
                     //Timer Start
 
                     for(Player p:Bukkit.getOnlinePlayers()) {
                         p.sendTitle("Vote Now!", "", 5, 30, 5);
                         p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, .5F);
-                        lobbyInv.addTeamSelector(p);
-                        lobbyInv.addVotingItems(p, false);
+                        Inventory inv = p.getInventory();
+                        inv.clear();
+                        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, ()-> {
+                            lobbyInv.addTeamSelector(p);
+                            lobbyInv.addVotingItems(p, false);
+                        },5L);
                     }
                     nextGame = NextGame.VOTING;
                     timerStage = "Voting Ends in";
@@ -63,10 +72,15 @@ public class LobbyStageHandler {
         );
         votingTimer.scheduleTimer();
     }
+
+    /**
+     * Pregame timer, runs after voting ends to count down the time until next round is supposed to start
+     */
     public void initPregameTimer() {
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, ()-> {
-            Countdown votingTimer = new Countdown((JavaPlugin)plugin,
-                    15,
+        //commenting out the delay, idk why it's here
+        //Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, ()-> {
+            Countdown pregameTimer = new Countdown((JavaPlugin)plugin,
+                    plugin.getConfig().getInt("PregameTime"),
                     ()-> {
                         //Timer Start
                         for(Player p:Bukkit.getOnlinePlayers()) {
@@ -87,7 +101,7 @@ public class LobbyStageHandler {
 
                     }
             );
-            votingTimer.scheduleTimer();
-        }, 5L);
+            pregameTimer.scheduleTimer();
+        //}, 5L);
     }
 }

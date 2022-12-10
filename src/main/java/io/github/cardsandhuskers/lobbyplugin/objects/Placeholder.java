@@ -45,6 +45,7 @@ public class Placeholder extends PlaceholderExpansion {
                 case TNTRUN: return "TNT Run";
                 case BUILDBATTLE: return "Build Battle";
                 case SURVIVALGAMES: return "Survival Games";
+                case DROPPER: return "The Dropper";
                 case VOTING: return "Voting...";
             }
         }

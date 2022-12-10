@@ -30,7 +30,7 @@ public class PlayerJoinListener implements Listener {
                 lobbyInventory.addVotingItems(p, false);
             }
         } else {
-            //p.teleport(plugin.getConfig().getLocation("Lobby"));
+            p.teleport(plugin.getConfig().getLocation("Lobby"));
         }
     }
 }

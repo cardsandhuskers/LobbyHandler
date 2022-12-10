@@ -26,13 +26,15 @@ public class InventoryClickListener implements Listener {
             if (p.getWorld().equals(plugin.getConfig().getLocation("Lobby").getWorld())) {
                 if (invName.equalsIgnoreCase(ChatColor.AQUA + "voting menu")) {
                     if (e.getCurrentItem().getType() == Material.PURPLE_CONCRETE) {
-                        votingListHandler.setVote(p, "battlebox");
+                        votingListHandler.setVote(p, LobbyPlugin.NextGame.BATTLEBOX);
                     } else if (e.getCurrentItem().getType() == Material.SPRUCE_PLANKS) {
-                        votingListHandler.setVote(p, "buildbattle");
+                        votingListHandler.setVote(p, LobbyPlugin.NextGame.BUILDBATTLE);
                     } else if (e.getCurrentItem().getType() == Material.TNT) {
-                        votingListHandler.setVote(p, "tntrun");
+                        votingListHandler.setVote(p, LobbyPlugin.NextGame.TNTRUN);
                     } else if (e.getCurrentItem().getType() == Material.WOODEN_SWORD) {
-                        votingListHandler.setVote(p, "survivalgames");
+                        votingListHandler.setVote(p, LobbyPlugin.NextGame.SURVIVALGAMES);
+                    } else if (e.getCurrentItem().getType() == Material.WATER_BUCKET) {
+                        votingListHandler.setVote(p, LobbyPlugin.NextGame.DROPPER);
                     }
                 }
                 e.setCancelled(true);

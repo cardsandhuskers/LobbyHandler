@@ -51,6 +51,8 @@ public class ItemClickListener implements Listener {
                         break;
                         case SURVIVALGAMES: p.performCommand("startsurvivalgames " + multiplier);
                         break;
+                        case DROPPER: p.performCommand("startDropper " + multiplier);
+                        break;
                     }
                     lobbyStage = false;
                 }

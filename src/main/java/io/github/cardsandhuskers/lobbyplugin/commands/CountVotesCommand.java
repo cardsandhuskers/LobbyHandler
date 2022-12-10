@@ -1,7 +1,8 @@
 package io.github.cardsandhuskers.lobbyplugin.commands;
 
+import io.github.cardsandhuskers.lobbyplugin.LobbyPlugin;
+import io.github.cardsandhuskers.lobbyplugin.handlers.CitizensHandler;
 import io.github.cardsandhuskers.lobbyplugin.handlers.VoteCountHandler;
-import io.github.cardsandhuskers.lobbyplugin.objects.VotingMenu;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -9,12 +10,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
-import static io.github.cardsandhuskers.lobbyplugin.LobbyPlugin.votingMenuList;
-
 public class CountVotesCommand implements CommandExecutor {
+    LobbyPlugin plugin;
+    public CountVotesCommand(LobbyPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -22,6 +22,7 @@ public class CountVotesCommand implements CommandExecutor {
             if (p.isOp()) {
                 VoteCountHandler countHandler = new VoteCountHandler();
                 countHandler.countVotes();
+
             } else {
                 p.sendMessage(ChatColor.RED + "ERROR: You do not have permission to execute this command");
             }

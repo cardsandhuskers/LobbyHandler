@@ -1,5 +1,6 @@
 package io.github.cardsandhuskers.lobbyplugin.handlers;
 
+import io.github.cardsandhuskers.lobbyplugin.LobbyPlugin;
 import io.github.cardsandhuskers.lobbyplugin.objects.LobbyInventory;
 import io.github.cardsandhuskers.lobbyplugin.objects.VotingMenu;
 import org.bukkit.ChatColor;
@@ -10,6 +11,10 @@ import static io.github.cardsandhuskers.lobbyplugin.LobbyPlugin.votingMenuList;
 public class VotingListHandler {
 
 
+    /**
+     * opens the voting menu for the specified player (called in event handler)
+     * @param p
+     */
     public void openVotingMenu(Player p) {
         boolean found = false;
         for(VotingMenu m:votingMenuList) {
@@ -28,7 +33,13 @@ public class VotingListHandler {
         }
         System.out.println(votingMenuList.toString());
     }
-    public void setVote(Player p, String vote) {
+
+    /**
+     *
+     * @param p
+     * @param vote
+     */
+    public void setVote(Player p, LobbyPlugin.NextGame vote) {
         boolean found = false;
         for(VotingMenu m:votingMenuList) {
             if(m.getPlayer() != null) {

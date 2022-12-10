@@ -1,5 +1,6 @@
 package io.github.cardsandhuskers.lobbyplugin.objects;
 
+import io.github.cardsandhuskers.lobbyplugin.handlers.CitizensHandler;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -51,6 +52,7 @@ public class LobbyInventory {
         diamondMeta.setDisplayName("Vote Now!");
         diamond.setItemMeta(diamondMeta);
         inv.setItem(4, diamond);
+        //CitizensHandler.clearEquipment();
     }
     public void votingAnimationA(Player p) {
         Inventory inv = p.getInventory();
