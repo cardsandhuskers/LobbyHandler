@@ -1,6 +1,5 @@
 package io.github.cardsandhuskers.lobbyplugin.objects;
 
-import io.github.cardsandhuskers.lobbyplugin.handlers.CitizensHandler;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;

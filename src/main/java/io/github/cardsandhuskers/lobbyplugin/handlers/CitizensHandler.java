@@ -1,26 +1,19 @@
 package io.github.cardsandhuskers.lobbyplugin.handlers;
 
 import io.github.cardsandhuskers.lobbyplugin.LobbyPlugin;
-import net.citizensnpcs.api.CitizensAPI;
-import net.citizensnpcs.api.npc.MemoryNPCDataStore;
-import net.citizensnpcs.api.npc.NPC;
-import net.citizensnpcs.api.npc.NPCRegistry;
-import net.citizensnpcs.api.trait.trait.Equipment;
-import net.citizensnpcs.trait.SkinTrait;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.profile.PlayerProfile;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import static io.github.cardsandhuskers.teams.Teams.handler;
 import static io.github.cardsandhuskers.teams.Teams.ppAPI;
 
 public class CitizensHandler {
+    /*
     private LobbyPlugin plugin;
     private static ArrayList<NPC> npcTeamList;
     private static ArrayList<NPC> npcPlayerList;
@@ -117,11 +110,11 @@ public class CitizensHandler {
 
 
         //should be correct way to update hologram
-        /*
+
         NPC npc = getNPC(i);
         npc.getOrAddTrait(net.citizensnpcs.trait.HologramTrait.class).setLine(0, name);
 
-         */
+
     }
     public void updateSkins() {
         int counter = 0;
@@ -145,7 +138,7 @@ public class CitizensHandler {
         }
 
     }
-/*
+
     public String getPlayer(String color) {
         switch(color) {
             case "§2": return 4;

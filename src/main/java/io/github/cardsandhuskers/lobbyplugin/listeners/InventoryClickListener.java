@@ -27,6 +27,8 @@ public class InventoryClickListener implements Listener {
                 if (invName.equalsIgnoreCase(ChatColor.AQUA + "voting menu")) {
                     if (e.getCurrentItem().getType() == Material.PURPLE_CONCRETE) {
                         votingListHandler.setVote(p, LobbyPlugin.NextGame.BATTLEBOX);
+                    } else if(e.getCurrentItem().getType() == Material.MAP) {
+                        votingListHandler.setVote(p, LobbyPlugin.NextGame.BINGO);
                     } else if (e.getCurrentItem().getType() == Material.SPRUCE_PLANKS) {
                         votingListHandler.setVote(p, LobbyPlugin.NextGame.BUILDBATTLE);
                     } else if (e.getCurrentItem().getType() == Material.TNT) {
@@ -35,6 +37,10 @@ public class InventoryClickListener implements Listener {
                         votingListHandler.setVote(p, LobbyPlugin.NextGame.SURVIVALGAMES);
                     } else if (e.getCurrentItem().getType() == Material.WATER_BUCKET) {
                         votingListHandler.setVote(p, LobbyPlugin.NextGame.DROPPER);
+                    } else if (e.getCurrentItem().getType() == Material.LEATHER_BOOTS) {
+                        votingListHandler.setVote(p, LobbyPlugin.NextGame.TGTTOS);
+                    } else if (e.getCurrentItem().getType() == Material.ELYTRA) {
+                        votingListHandler.setVote(p, LobbyPlugin.NextGame.SKYWARS);
                     }
                 }
                 e.setCancelled(true);

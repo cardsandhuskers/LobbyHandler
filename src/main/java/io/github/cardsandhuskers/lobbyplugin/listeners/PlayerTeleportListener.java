@@ -28,12 +28,12 @@ public class PlayerTeleportListener implements Listener {
             if(p.getWorld().equals(plugin.getConfig().getLocation("Lobby").getWorld())) {
                 LobbyInventory inventory = new LobbyInventory();
                 inventory.addTeamSelector(p);
-                System.out.println("VOTING: " + voting);
+                //System.out.println("VOTING: " + voting);
                 if(lobbyStage) {
                     inventory.addVotingItems(p, false);
                 }
             }
-        }, 40L);
+        }, 20L);
 
 
 

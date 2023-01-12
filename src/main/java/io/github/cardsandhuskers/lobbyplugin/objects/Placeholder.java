@@ -42,11 +42,16 @@ public class Placeholder extends PlaceholderExpansion {
         if(s.equals("nextGame")) {
             switch(nextGame) {
                 case BATTLEBOX: return "Battlebox";
-                case TNTRUN: return "TNT Run";
+                case BINGO: return "Bingo";
                 case BUILDBATTLE: return "Build Battle";
-                case SURVIVALGAMES: return "Survival Games";
                 case DROPPER: return "The Dropper";
+                case SKYWARS: return "Sky Wars";
+                case SURVIVALGAMES: return "Survival Games";
+                case TGTTOS: return "TGTTOS";
+                case TNTRUN: return "TNT Run";
                 case VOTING: return "Voting...";
+                case LASERDOME: return "Laserdome";
+                case IN_GAME: return "In Game";
             }
         }
         if(s.equals("timeLeft")) {

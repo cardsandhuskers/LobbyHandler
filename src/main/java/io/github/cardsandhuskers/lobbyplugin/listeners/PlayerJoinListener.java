@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.Inventory;
 
+import static io.github.cardsandhuskers.lobbyplugin.LobbyPlugin.nextGame;
 import static io.github.cardsandhuskers.lobbyplugin.LobbyPlugin.voting;
 
 
@@ -23,14 +24,18 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
+        if(nextGame == LobbyPlugin.NextGame.IN_GAME) return;
         Player p = e.getPlayer();
         if(p.getWorld().equals(plugin.getConfig().getLocation("Lobby").getWorld())) {
-            lobbyInventory.addTeamSelector(p);
-            if(voting) {
-                lobbyInventory.addVotingItems(p, false);
-            }
+            //plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, ()-> {
+            //},5);
+
         } else {
             p.teleport(plugin.getConfig().getLocation("Lobby"));
+        }
+        lobbyInventory.addTeamSelector(p);
+        if(voting) {
+            lobbyInventory.addVotingItems(p, false);
         }
     }
 }

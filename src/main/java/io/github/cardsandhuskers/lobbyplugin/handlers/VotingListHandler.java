@@ -3,6 +3,7 @@ package io.github.cardsandhuskers.lobbyplugin.handlers;
 import io.github.cardsandhuskers.lobbyplugin.LobbyPlugin;
 import io.github.cardsandhuskers.lobbyplugin.objects.LobbyInventory;
 import io.github.cardsandhuskers.lobbyplugin.objects.VotingMenu;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -31,11 +32,11 @@ public class VotingListHandler {
             votingMenuList.add(votingInv);
             votingInv.openMenu();
         }
-        System.out.println(votingMenuList.toString());
+        //System.out.println(votingMenuList.toString());
     }
 
     /**
-     *
+     * Called when vote is set by the inventoryClick listener
      * @param p
      * @param vote
      */
@@ -57,6 +58,14 @@ public class VotingListHandler {
             votingMenuList.add(votingInv);
             votingInv.setVote(vote);
             p.sendMessage(ChatColor.RED + "THIS IS AN ERROR THAT SHOULD NOT HAPPEN, IF YOU SEE THIS, TELL CARDSANDHUSKERS");
+        }
+
+        for(VotingMenu m:votingMenuList) {
+            //System.out.println(m.getPlayer().getDisplayName() + " is open: " + m.isOpen());
+
+            if(m.isOpen()) {
+                m.updateMenu();
+            }
         }
     }
 

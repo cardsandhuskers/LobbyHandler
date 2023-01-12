@@ -7,9 +7,15 @@ commands:
   setLobby:
     description: sets lobby location
     usage: /<command>
-  countVotes:
-    description: counts votes
-    usage: /<command>
   startEvent:
     description: starts timers
     usage: /<command>
+  startRound:
+    description: starts the next round
+    usage: /<command>
+  setGameNumber:
+    description: sets the game number that you are currently on
+    usage: /<command> [gameNumber]
+  removeGame:
+    description: remove a game from the voting list
+    usage: /<command> [GAME]
