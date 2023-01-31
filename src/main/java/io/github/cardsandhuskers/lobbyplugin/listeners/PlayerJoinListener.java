@@ -2,6 +2,7 @@ package io.github.cardsandhuskers.lobbyplugin.listeners;
 
 import io.github.cardsandhuskers.lobbyplugin.LobbyPlugin;
 import io.github.cardsandhuskers.lobbyplugin.objects.LobbyInventory;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,8 +28,7 @@ public class PlayerJoinListener implements Listener {
         if(nextGame == LobbyPlugin.NextGame.IN_GAME) return;
         Player p = e.getPlayer();
         if(p.getWorld().equals(plugin.getConfig().getLocation("Lobby").getWorld())) {
-            //plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, ()-> {
-            //},5);
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, ()-> p.setGameMode(GameMode.ADVENTURE),5);
 
         } else {
             p.teleport(plugin.getConfig().getLocation("Lobby"));

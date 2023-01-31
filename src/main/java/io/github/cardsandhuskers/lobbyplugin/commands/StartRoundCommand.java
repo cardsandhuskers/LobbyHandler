@@ -52,7 +52,17 @@ public class StartRoundCommand implements CommandExecutor {
                 multiplier += .5;
             }
             votingMenuList.clear();
-            //citizensHandler.updateSkins();
+
+            //put tempPoints into the main points holder
+            for(Team t:handler.getTeams()) {
+                for(OfflinePlayer p:t.getPlayers()) {
+                    int points = (int) t.getPlayerTempPointsValue(p);
+                    ppAPI.give(p.getUniqueId(), points);
+                }
+            }
+
+
+
             try {
                 savePoints();
             } catch (IOException e) {
