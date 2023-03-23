@@ -16,6 +16,7 @@ public class LobbyStageHandler {
     public LobbyStageHandler(LobbyPlugin plugin) {
         this.plugin = plugin;
     }
+    public static NextGame currentGame;
 
     public void init() {
         if(gameNumber == 9) {
@@ -118,7 +119,29 @@ public class LobbyStageHandler {
                 },
                 () -> {
                     //Timer End
-
+                    switch(nextGame) {
+                        case BATTLEBOX:
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "startbattlebox " + multiplier);
+                            break;
+                        case BINGO: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "startBingo " + multiplier);
+                            break;
+                        case BUILDBATTLE: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "startBuildBattle " + multiplier);
+                            break;
+                        case TGTTOS: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "startTGTTOS " + multiplier);
+                            break;
+                        case TNTRUN: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "startTNTRun " + multiplier);
+                            break;
+                        case SURVIVALGAMES: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "startsurvivalgames " + multiplier + " SURVIVAL_GAMES");
+                            break;
+                        case DROPPER: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "startDropper " + multiplier);
+                            break;
+                        case SKYWARS: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "startSurvivalGames " + multiplier + " SKYWARS");
+                            break;
+                        case LASERDOME: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "startLaserdome");
+                    }
+                    lobbyStage = false;
+                    currentGame = nextGame;
+                    nextGame = NextGame.IN_GAME;
 
                 },
                 (t) -> {

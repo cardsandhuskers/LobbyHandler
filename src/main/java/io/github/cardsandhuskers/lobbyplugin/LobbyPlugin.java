@@ -4,6 +4,7 @@ import io.github.cardsandhuskers.lobbyplugin.commands.*;
 import io.github.cardsandhuskers.lobbyplugin.handlers.LobbyStageHandler;
 import io.github.cardsandhuskers.lobbyplugin.listeners.*;
 import io.github.cardsandhuskers.lobbyplugin.objects.Placeholder;
+import io.github.cardsandhuskers.lobbyplugin.objects.StatCalculator;
 import io.github.cardsandhuskers.lobbyplugin.objects.VotingMenu;
 import org.black_ixx.playerpoints.PlayerPoints;
 import org.black_ixx.playerpoints.PlayerPointsAPI;
@@ -11,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.bukkit.Bukkit.getServer;
 
@@ -38,12 +40,15 @@ public final class LobbyPlugin extends JavaPlugin {
             Bukkit.getPluginManager().disablePlugin(this);
         }
 
+        StatCalculator statCalculator = new StatCalculator(this);
+
+
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             /*
              * We register the EventListener here, when PlaceholderAPI is installed.
              * Since all events are in the main class (this class), we simply use "this"
              */
-            new Placeholder(this).register();
+            new Placeholder(this, statCalculator).register();
 
         } else {
             /*
@@ -73,7 +78,7 @@ public final class LobbyPlugin extends JavaPlugin {
 
         getCommand("setLobby").setExecutor(new SetLobbyCommand(this));
         //getCommand("countVotes").setExecutor(new CountVotesCommand(this));
-        getCommand("startEvent").setExecutor(new StartGameCommand(this, stageHandler));
+        getCommand("startEvent").setExecutor(new StartGameCommand(this, stageHandler, statCalculator));
         //getCommand("setPodium").setExecutor(new SavePodiumLocationCommand(this));
         getCommand("setGameNumber").setExecutor(new SetGameNumber());
         getCommand("removeGame").setExecutor(new RemoveGameCommand());
@@ -92,6 +97,8 @@ public final class LobbyPlugin extends JavaPlugin {
         remainingGames.add(NextGame.TGTTOS);
         remainingGames.add(NextGame.TNTRUN);
 
+        statCalculator.calculateStats();
+
     }
 
     @Override
@@ -109,7 +116,9 @@ public final class LobbyPlugin extends JavaPlugin {
         TGTTOS,
         TNTRUN,
         SKYWARS,
-        LASERDOME
+        LASERDOME,
+        //only used for point calculations
+        TOTAL
 
     }
 }

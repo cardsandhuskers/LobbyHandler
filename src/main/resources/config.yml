@@ -1,2 +1,7 @@
 VotingTime: 25
 PregameTime: 30
+BreakTime: 300
+eventNum: 1
+
+#location of the spawnpoint of the lobby (use /setLobby in game to set)
+Lobby:

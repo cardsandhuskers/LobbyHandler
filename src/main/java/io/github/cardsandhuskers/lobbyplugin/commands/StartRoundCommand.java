@@ -1,33 +1,40 @@
 package io.github.cardsandhuskers.lobbyplugin.commands;
 
+import io.github.cardsandhuskers.lobbyplugin.LobbyPlugin;
 import io.github.cardsandhuskers.lobbyplugin.handlers.LobbyStageHandler;
-import io.github.cardsandhuskers.lobbyplugin.listeners.ItemClickListener;
+import io.github.cardsandhuskers.lobbyplugin.objects.StatCalculator;
 import io.github.cardsandhuskers.teams.objects.Team;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLOutput;
 
 import static io.github.cardsandhuskers.lobbyplugin.LobbyPlugin.*;
 import static io.github.cardsandhuskers.lobbyplugin.LobbyPlugin.votingMenuList;
+import static io.github.cardsandhuskers.lobbyplugin.handlers.LobbyStageHandler.currentGame;
 import static io.github.cardsandhuskers.teams.Teams.handler;
 
 public class StartRoundCommand implements CommandExecutor {
     LobbyStageHandler lobbyStageHandler;
-    //CitizensHandler citizensHandler;
+    LobbyPlugin plugin;
+    StatCalculator statCalculator;
 
-    public StartRoundCommand(LobbyStageHandler lobbyStageHandler/*, CitizensHandler citizensHandler*/) {
+    public StartRoundCommand(LobbyStageHandler lobbyStageHandler, LobbyPlugin plugin, StatCalculator statCalculator) {
         this.lobbyStageHandler = lobbyStageHandler;
-        //this.citizensHandler = citizensHandler;
+        this.plugin = plugin;
+        this.statCalculator = statCalculator;
     }
 
     @Override
@@ -47,10 +54,7 @@ public class StartRoundCommand implements CommandExecutor {
             lobbyStage = true;
             voting = true;
             gameNumber++;
-            lobbyStageHandler.init();
-            if((gameNumber + 1) %2 == 0) {
-                multiplier += .5;
-            }
+
             votingMenuList.clear();
 
             //put tempPoints into the main points holder
@@ -61,50 +65,47 @@ public class StartRoundCommand implements CommandExecutor {
                 }
             }
 
-
-
             try {
                 savePoints();
             } catch (IOException e) {
                 throw new RuntimeException("Points file could not be accessed, so points were NOT SAVED");
             }
+            lobbyStageHandler.init();
+            if((gameNumber + 1) %2 == 0) {
+                multiplier += .5;
+            }
         }
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, statCalculator::calculateStats);
     }
 
     private void savePoints() throws IOException {
-        File pointsFile = new File(Bukkit.getServer().getPluginManager().getPlugin("LobbyPlugin").getDataFolder(),"points.yml");
-        if(!pointsFile.exists()) {
-            //if the file does not exist, make it
-            pointsFile.createNewFile();
+
+        FileWriter writer = new FileWriter("plugins/LobbyPlugin/points" + plugin.getConfig().getInt("eventNum") + ".csv", true);
+        FileReader reader = new FileReader("plugins/LobbyPlugin/points" + plugin.getConfig().getInt("eventNum") + ".csv");
+
+        String[] headers = {"Game","Team", "Name", "Points", "Temp Points", "Multiplier"};
+
+        CSVFormat.Builder builder = CSVFormat.Builder.create();
+        builder.setHeader(headers);
+        CSVFormat format = builder.build();
+
+        CSVParser parser = new CSVParser(reader, format);
+
+        if(!parser.getRecords().isEmpty()) {
+            format = CSVFormat.DEFAULT;
         }
-        FileConfiguration pointsFileConfig = YamlConfiguration.loadConfiguration(pointsFile);
 
-        pointsFileConfig.set((gameNumber-1) + ".game", ItemClickListener.currentGame.toString());
+        CSVPrinter printer = new CSVPrinter(writer, format);
 
-        for(Team t: handler.getTeams()) {
-            String path = (gameNumber-1) + "." + t.getTeamName() + ".";
-
-            pointsFileConfig.set(path + "color", t.color);
-            pointsFileConfig.set(path + "points", t.getPoints());
-            pointsFileConfig.set(path + "tempPoints", t.getTempPoints());
-
-            path += "players.";
-
-            for(Player p:t.getOnlinePlayers()) {
-                String playerPath = path + p.getUniqueId() + ".";
-
-                pointsFileConfig.set(playerPath + "name", p.getDisplayName());
-                pointsFileConfig.set(playerPath + "points", ppAPI.look(p.getUniqueId()));
-                pointsFileConfig.set(playerPath + "tempPoints", handler.getPlayerTeam(p).getPlayerTempPointsValue(p));
+        //printer.printRecord(currentGame);
+        for(Team team: handler.getTeams()) {
+            printer.printRecord(currentGame, team.getTeamName(), "Total-", team.getPoints(), team.getTempPoints(), multiplier);
+            for(Player p: team.getOnlinePlayers()) {
+                printer.printRecord(currentGame, team.getTeamName(), p.getDisplayName(), ppAPI.look(p.getUniqueId()), team.getPlayerTempPointsValue(p), multiplier);
             }
         }
 
-        try {
-            pointsFileConfig.save(pointsFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        writer.close();
 
     }
 }
