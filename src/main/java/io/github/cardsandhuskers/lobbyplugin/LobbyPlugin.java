@@ -108,7 +108,7 @@ public final class LobbyPlugin extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
     }
-    public static enum NextGame {
+    public enum NextGame {
         VOTING,
         IN_GAME,
         BATTLEBOX,

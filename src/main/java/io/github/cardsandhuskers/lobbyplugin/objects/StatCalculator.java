@@ -86,7 +86,7 @@ public class StatCalculator {
         generatePlayerHolders();
         ArrayList<PlayerHolder> playerHolders1 = getPlayerHolders(LobbyPlugin.NextGame.SKYWARS);
         for(PlayerHolder p:playerHolders1) {
-            System.out.println(p.toString());
+            //System.out.println(p.toString());
         }
 
         ArrayList<StatHolder> statHolderArrayList = getStatHolders();
@@ -97,7 +97,7 @@ public class StatCalculator {
         }
         StatHolderComparator statHolderComparator = new StatHolderComparator(LobbyPlugin.NextGame.TOTAL);
         Collections.sort(statHolderArrayList, statHolderComparator);
-        System.out.println("------------------");
+        //System.out.println("------------------");
         for(StatHolder h:statHolderArrayList) {
             //System.out.println(h.toString());
         }

@@ -77,19 +77,20 @@ public class Placeholder extends PlaceholderExpansion {
         String[] values = s.split("_");
 
         if(values[0].equalsIgnoreCase("playerPoints")) {
-            for (NextGame g : NextGame.values()) {
-                if (values[1].equalsIgnoreCase(String.valueOf(g))) {
-                    ArrayList<StatCalculator.PlayerHolder> playerHolders = statCalculator.getPlayerHolders(g);
-                    try {
-                        int x = Integer.parseInt(values[2]);
-                        StatCalculator.PlayerHolder holder = playerHolders.get(x-1);
+            try {
+                NextGame g = NextGame.valueOf(values[1]);
+                ArrayList<StatCalculator.PlayerHolder> playerHolders = statCalculator.getPlayerHolders(g);
 
-                        Player player = Bukkit.getPlayer(holder.name);
-                        if(player!= null && handler.getPlayerTeam(player) != null) return handler.getPlayerTeam(player).color + holder.name + ChatColor.RESET + " Event " + holder.event + ": ✪" + (int)(holder.getPoints(g)/holder.getMultiplier(g));
-                        return holder.name + " Event " + holder.event + ": ✪" + (int)(holder.getPoints(g)/holder.getMultiplier(g));
-                    } catch (Exception e){};
-                }
-            }
+                int x = Integer.parseInt(values[2]);
+                if(x > playerHolders.size()) return "";
+
+                StatCalculator.PlayerHolder holder = playerHolders.get(x-1);
+
+                String color = "";
+                if (handler.getPlayerTeam(Bukkit.getPlayer(holder.name)) != null)
+                    color = handler.getPlayerTeam(Bukkit.getPlayer(holder.name)).color;
+                return color + holder.name + ChatColor.RESET + " Event " + holder.event + ": ✪" + (int)(holder.getPoints(g)/holder.getMultiplier(g));
+            } catch (Exception e){};
             return "";
         }
 
