@@ -41,6 +41,8 @@ public class InventoryClickListener implements Listener {
                         votingListHandler.setVote(p, LobbyPlugin.NextGame.TGTTOS);
                     } else if (e.getCurrentItem().getType() == Material.ELYTRA) {
                         votingListHandler.setVote(p, LobbyPlugin.NextGame.SKYWARS);
+                    } else if (e.getCurrentItem().getType() == Material.SLIME_BLOCK) {
+                        votingListHandler.setVote(p, LobbyPlugin.NextGame.TAG);
                     }
                 }
                 e.setCancelled(true);

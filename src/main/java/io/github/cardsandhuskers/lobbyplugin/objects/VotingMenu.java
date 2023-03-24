@@ -70,6 +70,8 @@ public class VotingMenu {
                 return Material.ELYTRA;
             case SURVIVALGAMES:
                 return Material.WOODEN_SWORD;
+            case TAG:
+                return Material.SLIME_BLOCK;
             case TGTTOS:
                 return Material.LEATHER_BOOTS;
             case TNTRUN:
@@ -92,6 +94,8 @@ public class VotingMenu {
                 return "Sky Wars";
             case SURVIVALGAMES:
                 return "Survival Games";
+            case TAG:
+                return "Parkour Tag";
             case TGTTOS:
                 return "TGTTOS";
             case TNTRUN:

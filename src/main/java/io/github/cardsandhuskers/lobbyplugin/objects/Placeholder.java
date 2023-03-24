@@ -56,6 +56,7 @@ public class Placeholder extends PlaceholderExpansion {
                 case DROPPER: return "The Dropper";
                 case SKYWARS: return "Sky Wars";
                 case SURVIVALGAMES: return "Survival Games";
+                case TAG: return "Parkour Tag";
                 case TGTTOS: return "TGTTOS";
                 case TNTRUN: return "TNT Run";
                 case VOTING: return "Voting...";
@@ -89,6 +90,7 @@ public class Placeholder extends PlaceholderExpansion {
                     } catch (Exception e){};
                 }
             }
+            return "";
         }
 
         if(values[0].equalsIgnoreCase("teamPoints")) {
@@ -106,6 +108,7 @@ public class Placeholder extends PlaceholderExpansion {
                     } catch (Exception e){};
                 }
             }
+            return "";
         }
 
         if(values[0].equalsIgnoreCase("eventWinner")) {

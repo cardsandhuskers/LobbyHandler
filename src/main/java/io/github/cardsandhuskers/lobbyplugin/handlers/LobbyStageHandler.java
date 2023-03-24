@@ -138,6 +138,9 @@ public class LobbyStageHandler {
                         case SKYWARS: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "startSurvivalGames " + multiplier + " SKYWARS");
                             break;
                         case LASERDOME: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "startLaserdome");
+                            break;
+                        case TAG: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "startTag " + multiplier);
+                            break;
                     }
                     lobbyStage = false;
                     currentGame = nextGame;
@@ -160,6 +163,7 @@ public class LobbyStageHandler {
             case DROPPER: return "The Dropper";
             case SKYWARS: return "Sky Wars";
             case SURVIVALGAMES: return "Survival Games";
+            case TAG: return "Parkour Tag";
             case TGTTOS: return "To Get to the Other Side";
             case TNTRUN: return "TNT Run";
             case VOTING: return "Voting...";

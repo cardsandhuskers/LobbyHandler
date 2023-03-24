@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 import static org.bukkit.Bukkit.getServer;
@@ -94,8 +95,10 @@ public final class LobbyPlugin extends JavaPlugin {
         remainingGames.add(NextGame.DROPPER);
         remainingGames.add(NextGame.SKYWARS);
         remainingGames.add(NextGame.SURVIVALGAMES);
+        remainingGames.add(NextGame.TAG);
         remainingGames.add(NextGame.TGTTOS);
         remainingGames.add(NextGame.TNTRUN);
+        Collections.shuffle(remainingGames);
 
         statCalculator.calculateStats();
 
@@ -113,6 +116,7 @@ public final class LobbyPlugin extends JavaPlugin {
         BUILDBATTLE,
         DROPPER,
         SURVIVALGAMES,
+        TAG,
         TGTTOS,
         TNTRUN,
         SKYWARS,
