@@ -17,6 +17,7 @@ public class LobbyStageHandler {
         this.plugin = plugin;
     }
     public static NextGame currentGame;
+    public Countdown pregameTimer, votingTimer;
 
     public void init() {
         if(gameNumber == 9) {
@@ -32,31 +33,31 @@ public class LobbyStageHandler {
      */
     public void initVotingTimer() {
         LobbyInventory lobbyInv = new LobbyInventory();
-        Countdown votingTimer = new Countdown((JavaPlugin)plugin,
+        for(Player p:Bukkit.getOnlinePlayers()) {
+            p.sendTitle("Vote Now!", "", 5, 30, 5);
+            p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, .5F);
+            Inventory inv = p.getInventory();
+            inv.clear();
+            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, ()-> {
+                lobbyInv.addTeamSelector(p);
+                lobbyInv.addVotingItems(p, false);
+                p.setHealth(20);
+                p.setFoodLevel(20);
+                p.setSaturation(20);
+            },5L);
+            for(PotionEffect effect:p.getActivePotionEffects()) {
+                p.removePotionEffect(effect.getType());
+            }
+        }
+        nextGame = NextGame.VOTING;
+        timerStage = "Voting Ends in";
+
+
+        votingTimer = new Countdown((JavaPlugin)plugin,
                 //should be 45
                 plugin.getConfig().getInt("VotingTime"),
                 ()-> {
                     //Timer Start
-
-                    for(Player p:Bukkit.getOnlinePlayers()) {
-                        p.sendTitle("Vote Now!", "", 5, 30, 5);
-                        p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, .5F);
-                        Inventory inv = p.getInventory();
-                        inv.clear();
-                        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, ()-> {
-                            lobbyInv.addTeamSelector(p);
-                            lobbyInv.addVotingItems(p, false);
-                            p.setHealth(20);
-                            p.setFoodLevel(20);
-                            p.setSaturation(20);
-                        },5L);
-                        for(PotionEffect effect:p.getActivePotionEffects()) {
-                            p.removePotionEffect(effect.getType());
-                        }
-                    }
-                    nextGame = NextGame.VOTING;
-                    timerStage = "Voting Ends in";
-
                 },
                 () -> {
                     //Timer End
@@ -65,10 +66,10 @@ public class LobbyStageHandler {
                         lobbyInv.removeVotingItems(p);
                         p.closeInventory();
                     }
-                    initPregameTimer();
                     VoteCountHandler voteCountHandler = new VoteCountHandler();
                     voteCountHandler.countVotes(true);
                     voting = false;
+                    initPregameTimer();
                 },
                 (t) -> {
                     //Each Second
@@ -96,29 +97,33 @@ public class LobbyStageHandler {
             time = plugin.getConfig().getInt("PregameTime");
         }
 
-        Countdown pregameTimer = new Countdown((JavaPlugin)plugin,
+        if(gameNumber == 5) {
+            Bukkit.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "Break Time!");
+        }
+        if(gameNumber == 9) {
+            Bukkit.broadcastMessage("FINAL");
+        }
+        timerStage = "Next Game Starts in";
+        for(Player p:Bukkit.getOnlinePlayers()) {
+            if(nextGame == NextGame.LASERDOME) {
+                p.sendTitle(ChatColor.AQUA + "FINAL ROUND", ChatColor.BLUE + "The Laserdome", 5, 50, 5);
+            } else {
+                p.sendTitle(ChatColor.AQUA + "Voting Over", ChatColor.BLUE + "Next Game: " + getGame(), 5, 50, 5);
+            }
+
+            p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, .5F);
+        }
+
+        pregameTimer = new Countdown((JavaPlugin)plugin,
                 time,
                 ()-> {
                     //Timer Start
-                    for(Player p:Bukkit.getOnlinePlayers()) {
-                        if(nextGame == NextGame.LASERDOME) {
-                            p.sendTitle(ChatColor.AQUA + "FINAL ROUND", ChatColor.BLUE + "The Laserdome", 5, 50, 5);
-                        } else {
-                            p.sendTitle(ChatColor.AQUA + "Voting Over", ChatColor.BLUE + "Next Game: " + getGame(), 5, 50, 5);
-                        }
-
-                        p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, .5F);
-                    }
-                    if(gameNumber == 5) {
-                        Bukkit.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "Break Time!");
-                    }
-                    if(gameNumber == 9) {
-                        Bukkit.broadcastMessage("FINAL");
-                    }
-                    timerStage = "Next Game Starts in";
                 },
                 () -> {
                     //Timer End
+
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "p export confirm");
+
                     switch(nextGame) {
                         case BATTLEBOX:
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "startbattlebox " + multiplier);

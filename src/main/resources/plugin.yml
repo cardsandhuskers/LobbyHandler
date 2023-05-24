@@ -19,3 +19,6 @@ commands:
   removeGame:
     description: remove a game from the voting list
     usage: /<command> [GAME]
+  pauseEvent:
+    description: pauses the voting or pregame timer (whichever is active)
+    usage: /<command>

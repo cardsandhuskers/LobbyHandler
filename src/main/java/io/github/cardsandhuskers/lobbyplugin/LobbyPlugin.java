@@ -74,6 +74,7 @@ public final class LobbyPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerDamageListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerMoveListener(), this);
         getServer().getPluginManager().registerEvents(new ItemDropListener(this), this);
+        //getServer().getPluginManager().registerEvents(new PlayerInteractEvent(this), this);
 
         LobbyStageHandler stageHandler = new LobbyStageHandler(this);
 
@@ -83,6 +84,7 @@ public final class LobbyPlugin extends JavaPlugin {
         //getCommand("setPodium").setExecutor(new SavePodiumLocationCommand(this));
         getCommand("setGameNumber").setExecutor(new SetGameNumber());
         getCommand("removeGame").setExecutor(new RemoveGameCommand());
+        getCommand("pauseEvent").setExecutor(new PauseTimerCommand(this, stageHandler));
 
         votingMenuList = new ArrayList<>();
         multiplier = 1;

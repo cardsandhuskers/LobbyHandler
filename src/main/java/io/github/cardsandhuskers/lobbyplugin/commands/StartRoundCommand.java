@@ -20,6 +20,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLOutput;
+import java.util.UUID;
 
 import static io.github.cardsandhuskers.lobbyplugin.LobbyPlugin.*;
 import static io.github.cardsandhuskers.lobbyplugin.LobbyPlugin.votingMenuList;
@@ -57,11 +58,19 @@ public class StartRoundCommand implements CommandExecutor {
 
             votingMenuList.clear();
 
+            for(org.bukkit.scoreboard.Team t:Bukkit.getScoreboardManager().getMainScoreboard().getTeams()) {
+                t.setOption(org.bukkit.scoreboard.Team.Option.COLLISION_RULE, org.bukkit.scoreboard.Team.OptionStatus.NEVER);
+            }
+
             //put tempPoints into the main points holder
             for(Team t:handler.getTeams()) {
-                for(OfflinePlayer p:t.getPlayers()) {
-                    int points = (int) t.getPlayerTempPointsValue(p);
-                    ppAPI.give(p.getUniqueId(), points);
+                for(UUID uid:t.getPlayerIDs()) {
+                    try {
+                        int points = (int) t.getPlayerTempPointsValue(uid);
+                        ppAPI.give(uid, points);
+                    } catch (Exception e) {
+                        plugin.getLogger().severe("Could not give points to a player on team " + t.getTeamName());
+                    }
                 }
             }
 
@@ -75,7 +84,7 @@ public class StartRoundCommand implements CommandExecutor {
                 multiplier += .5;
             }
         }
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, statCalculator::calculateStats);
+        try {Bukkit.getScheduler().runTaskAsynchronously(plugin, statCalculator::calculateStats);}catch (Exception e){plugin.getLogger().severe("ERROR Calculating Stats");}
     }
 
     private void savePoints() throws IOException {

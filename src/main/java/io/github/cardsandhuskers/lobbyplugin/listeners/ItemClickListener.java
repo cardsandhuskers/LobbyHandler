@@ -42,9 +42,8 @@ public class ItemClickListener implements Listener {
                     e.getItem().getItemMeta().getDisplayName().equalsIgnoreCase("Vote Now!")) {
                     votingListHandler.openVotingMenu(p);
                 }
-                if (e.getItem().getItemMeta().getDisplayName().equals("Game Start Rod")) {
-
-
+                if (e.getItem().getItemMeta().getDisplayName().equals("Admin Rod")) {
+                    p.performCommand("pauseEvent");
                 }
             }
         }

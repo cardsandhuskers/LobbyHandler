@@ -27,7 +27,7 @@ public class LobbyInventory {
         if(p.isOp()) {
             ItemStack adminTool = new ItemStack(Material.BLAZE_ROD, 1);
             ItemMeta adminToolMeta = adminTool.getItemMeta();
-            adminToolMeta.setDisplayName("Game Start Rod");
+            adminToolMeta.setDisplayName("Admin Rod");
             adminTool.setItemMeta(adminToolMeta);
             inv.setItem(8, adminTool);
         }

@@ -76,10 +76,6 @@ public class StatCalculator {
                 h.addTotal();
             }
 
-            for(StatHolder h:statHolderMap.values()) {
-                //System.out.println(h.toString());
-            }
-
             fullStatMap.put(i, statHolderMap);
         }
 
@@ -133,11 +129,13 @@ public class StatCalculator {
     }
 
     public ArrayList<PlayerHolder> getPlayerHolders(LobbyPlugin.NextGame game) {
-        PlayerHolderComparator comparator = new PlayerHolderComparator(game);
-        Collections.sort(playerHolders, comparator);
-        Collections.reverse(playerHolders);
+        ArrayList<PlayerHolder> ph = new ArrayList<>(playerHolders);
 
-        return (ArrayList<PlayerHolder>) playerHolders.clone();
+        PlayerHolderComparator comparator = new PlayerHolderComparator(game);
+        Collections.sort(ph, comparator);
+        Collections.reverse(ph);
+
+        return ph;
     }
 
     public ArrayList<StatHolder>  getStatHolders() {
