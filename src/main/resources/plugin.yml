@@ -3,6 +3,7 @@ version: '${project.version}'
 main: io.github.cardsandhuskers.lobbyplugin.LobbyPlugin
 api-version: 1.19
 depend: [PlayerPoints, PlaceholderAPI]
+softdepend: [Multiverse-Core]
 commands:
   setLobby:
     description: sets lobby location
