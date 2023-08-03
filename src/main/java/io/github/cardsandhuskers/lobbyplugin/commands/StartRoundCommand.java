@@ -58,9 +58,9 @@ public class StartRoundCommand implements CommandExecutor {
 
             votingMenuList.clear();
 
-            for(org.bukkit.scoreboard.Team t:Bukkit.getScoreboardManager().getMainScoreboard().getTeams()) {
+            /*for(org.bukkit.scoreboard.Team t:Bukkit.getScoreboardManager().getMainScoreboard().getTeams()) {
                 t.setOption(org.bukkit.scoreboard.Team.Option.COLLISION_RULE, org.bukkit.scoreboard.Team.OptionStatus.NEVER);
-            }
+            }*/
 
             //put tempPoints into the main points holder
             for(Team t:handler.getTeams()) {

@@ -74,14 +74,12 @@ public final class LobbyPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerDamageListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerMoveListener(), this);
         getServer().getPluginManager().registerEvents(new ItemDropListener(this), this);
-        //getServer().getPluginManager().registerEvents(new PlayerInteractEvent(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerClickEntityEvent(this), this);
 
         LobbyStageHandler stageHandler = new LobbyStageHandler(this);
 
         getCommand("setLobby").setExecutor(new SetLobbyCommand(this));
-        //getCommand("countVotes").setExecutor(new CountVotesCommand(this));
         getCommand("startEvent").setExecutor(new StartGameCommand(this, stageHandler, statCalculator));
-        //getCommand("setPodium").setExecutor(new SavePodiumLocationCommand(this));
         getCommand("setGameNumber").setExecutor(new SetGameNumber());
         getCommand("removeGame").setExecutor(new RemoveGameCommand());
         getCommand("pauseEvent").setExecutor(new PauseTimerCommand(this, stageHandler));

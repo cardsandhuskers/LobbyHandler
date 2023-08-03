@@ -42,13 +42,13 @@ public class Placeholder extends PlaceholderExpansion {
 
     @Override
     public String onRequest(OfflinePlayer p, String s) {
-        if(s.equals("multiplier")) {
+        if(s.equalsIgnoreCase("multiplier")) {
             return "" + multiplier;
         }
-        if(s.equals("gameNumber")) {
+        if(s.equalsIgnoreCase("gameNumber")) {
             return "" + gameNumber;
         }
-        if(s.equals("nextGame")) {
+        if(s.equalsIgnoreCase("nextGame")) {
             switch(nextGame) {
                 case BATTLEBOX: return "Battlebox";
                 case BINGO: return "Bingo";
