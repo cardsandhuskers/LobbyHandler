@@ -132,6 +132,8 @@ public class LobbyStageHandler {
                             break;
                         case BUILDBATTLE: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "startBuildBattle " + multiplier);
                             break;
+                        case PARKOUR: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "startParkour " + multiplier);
+                            break;
                         case TGTTOS: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "startTGTTOS " + multiplier);
                             break;
                         case TNTRUN: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "startTNTRun " + multiplier);
@@ -166,6 +168,7 @@ public class LobbyStageHandler {
             case BINGO: return "Bingo";
             case BUILDBATTLE: return "Build Battle";
             case DROPPER: return "The Dropper";
+            case PARKOUR: return "Hardcore Parkour";
             case SKYWARS: return "Sky Wars";
             case SURVIVALGAMES: return "Survival Games";
             case TAG: return "Parkour Tag";

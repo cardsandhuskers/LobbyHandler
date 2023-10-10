@@ -28,7 +28,7 @@ public class VotingMenu {
 
     public void openMenu() {
         Player p = Bukkit.getPlayer(player);
-        inventory = Bukkit.createInventory(p, 9, ChatColor.AQUA + "Voting Menu");
+        inventory = Bukkit.createInventory(p, 18, ChatColor.AQUA + "Voting Menu");
         p.openInventory(inventory);
         updateMenu();
         open();
@@ -78,6 +78,8 @@ public class VotingMenu {
                 return Material.TNT;
             default:
                 return Material.AIR;
+            case PARKOUR:
+                return Material.SMOOTH_STONE_SLAB;
         }
     }
     public String getName(LobbyPlugin.NextGame g) {
@@ -100,6 +102,8 @@ public class VotingMenu {
                 return "TGTTOS";
             case TNTRUN:
                 return "TNT Run";
+            case PARKOUR:
+                return "Hardcore Parkour";
             default:
                 return "NULL";
         }

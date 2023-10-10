@@ -13,10 +13,8 @@ public class PlayerDamageListener implements Listener {
     Location lobby = plugin.getConfig().getLocation("Lobby");
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent e) {
-        if(e.getEntityType() == EntityType.PLAYER) {
-            if(e.getEntity().getLocation().getWorld().equals(lobby.getWorld())) {
-                e.setCancelled(true);
-            }
+        if(e.getEntity().getLocation().getWorld().equals(lobby.getWorld())) {
+            e.setCancelled(true);
         }
     }
 }

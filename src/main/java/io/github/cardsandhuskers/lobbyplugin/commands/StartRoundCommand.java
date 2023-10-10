@@ -73,6 +73,7 @@ public class StartRoundCommand implements CommandExecutor {
                     }
                 }
             }
+            for(Player p:Bukkit.getOnlinePlayers()) p.setInvisible(false);
 
             try {
                 savePoints();

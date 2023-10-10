@@ -93,6 +93,7 @@ public final class LobbyPlugin extends JavaPlugin {
         remainingGames.add(NextGame.BINGO);
         remainingGames.add(NextGame.BUILDBATTLE);
         remainingGames.add(NextGame.DROPPER);
+        remainingGames.add(NextGame.PARKOUR);
         remainingGames.add(NextGame.SKYWARS);
         remainingGames.add(NextGame.SURVIVALGAMES);
         remainingGames.add(NextGame.TAG);
@@ -121,6 +122,7 @@ public final class LobbyPlugin extends JavaPlugin {
         TNTRUN,
         SKYWARS,
         LASERDOME,
+        PARKOUR,
         //only used for point calculations
         TOTAL
 
