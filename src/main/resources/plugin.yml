@@ -23,3 +23,6 @@ commands:
   pauseEvent:
     description: pauses the voting or pregame timer (whichever is active)
     usage: /<command>
+  bypassLobbyBuild:
+    description: bypass build restrictions in the lobby
+    usage: /<command>

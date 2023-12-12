@@ -1,6 +1,7 @@
 package io.github.cardsandhuskers.lobbyplugin.listeners;
 
 import io.github.cardsandhuskers.lobbyplugin.LobbyPlugin;
+import io.github.cardsandhuskers.lobbyplugin.commands.AdminBypassCommand;
 import io.github.cardsandhuskers.lobbyplugin.handlers.VoteCountHandler;
 import io.github.cardsandhuskers.lobbyplugin.handlers.VotingListHandler;
 import io.github.cardsandhuskers.lobbyplugin.objects.VotingMenu;
@@ -36,7 +37,7 @@ public class ItemClickListener implements Listener {
             if(e.getAction() == Action.PHYSICAL) {
 
             } else {
-                e.setCancelled(true);
+                if(!AdminBypassCommand.isBypassed(p)) e.setCancelled(true);
                 if (e.getItem() != null) {
                     if (e.getMaterial() == Material.NETHER_STAR &&
                             e.getItem().getItemMeta().getDisplayName().equalsIgnoreCase("Select Team")) {

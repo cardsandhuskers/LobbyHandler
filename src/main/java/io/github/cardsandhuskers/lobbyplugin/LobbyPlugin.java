@@ -83,6 +83,7 @@ public final class LobbyPlugin extends JavaPlugin {
         getCommand("setGameNumber").setExecutor(new SetGameNumber());
         getCommand("removeGame").setExecutor(new RemoveGameCommand());
         getCommand("pauseEvent").setExecutor(new PauseTimerCommand(this, stageHandler));
+        getCommand("bypassLobbyBuild").setExecutor(new AdminBypassCommand());
 
         votingMenuList = new ArrayList<>();
         multiplier = 1;

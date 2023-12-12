@@ -1,6 +1,7 @@
 package io.github.cardsandhuskers.lobbyplugin.listeners;
 
 import io.github.cardsandhuskers.lobbyplugin.LobbyPlugin;
+import io.github.cardsandhuskers.lobbyplugin.commands.AdminBypassCommand;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,7 +16,7 @@ public class PlayerClickEntityEvent implements Listener {
     @EventHandler
     public void onEntityClick(PlayerInteractAtEntityEvent e) {
         if (e.getPlayer().getLocation().getWorld().equals(lobby.getWorld())) {
-            e.setCancelled(true);
+            if(!AdminBypassCommand.isBypassed(e.getPlayer())) e.setCancelled(true);
         }
     }
 }
