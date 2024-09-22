@@ -34,6 +34,7 @@ public class LobbyStageHandler {
     public void initVotingTimer() {
         LobbyInventory lobbyInv = new LobbyInventory();
         for(Player p:Bukkit.getOnlinePlayers()) {
+            p.setInvisible(false);
             p.sendTitle("Vote Now!", "", 5, 30, 5);
             p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, .5F);
             Inventory inv = p.getInventory();

@@ -1,6 +1,8 @@
 package io.github.cardsandhuskers.lobbyplugin.objects;
 
 import io.github.cardsandhuskers.lobbyplugin.LobbyPlugin;
+import io.github.cardsandhuskers.teams.handlers.TeamHandler;
+import io.github.cardsandhuskers.teams.objects.Team;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -74,6 +76,19 @@ public class Placeholder extends PlaceholderExpansion {
             return timerStage;
         }
 
+        if(s.equalsIgnoreCase("points")) {
+            try {
+                int points = ppAPI.look(p.getUniqueId());
+                Team team = TeamHandler.getInstance().getPlayerTeam((Player) p);
+                if (team != null) {
+                    points += (int) team.getPlayerTempPointsValue(p);
+                }
+                return points + "";
+            } catch (Exception e) {
+                return 0 + "";
+            }
+        }
+
         //Lobby_playerPoints_[game]_[pos]
         String[] values = s.split("_");
 
@@ -123,8 +138,6 @@ public class Placeholder extends PlaceholderExpansion {
 
             } catch (Exception e){};
         }
-
-
 
         return null;
     }

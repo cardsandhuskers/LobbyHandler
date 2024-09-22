@@ -25,6 +25,7 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
+        e.getPlayer().setInvisible(false);
         if(nextGame == LobbyPlugin.NextGame.IN_GAME) return;
         Player p = e.getPlayer();
         if(p.getWorld().equals(plugin.getConfig().getLocation("Lobby").getWorld())) {

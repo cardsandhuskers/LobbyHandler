@@ -23,9 +23,6 @@ private static HashMap<Player, Boolean> bypassed = new HashMap<>();
                     p.sendMessage(ChatColor.GREEN + "You are now able to interact in the lobby");
                     bypassed.put(p, true);
                 }
-
-
-
             } else {
                 p.sendMessage(ChatColor.RED + "ERROR: You do not have permission to execute this command");
             }
