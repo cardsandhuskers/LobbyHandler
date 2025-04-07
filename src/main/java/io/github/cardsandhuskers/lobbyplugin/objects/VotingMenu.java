@@ -2,9 +2,12 @@ package io.github.cardsandhuskers.lobbyplugin.objects;
 
 import io.github.cardsandhuskers.lobbyplugin.LobbyPlugin;
 import io.github.cardsandhuskers.lobbyplugin.handlers.VoteCountHandler;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -44,10 +47,11 @@ public class VotingMenu {
 
             ItemStack stack = new ItemStack(getMaterial(g), num);
             ItemMeta stackMeta = stack.getItemMeta();
-            stackMeta.setDisplayName(getName(g));
+            stackMeta.setMaxStackSize(64);
+            stackMeta.displayName(Component.text(getName(g)).decoration(TextDecoration.ITALIC, false));
             stackMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-            if (vote != null && g.equals(vote)) {
-                stackMeta.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
+            if (g.equals(vote)) {
+                stackMeta.addEnchant(Enchantment.AQUA_AFFINITY, 1, true);
             }
             stack.setItemMeta(stackMeta);
             inventory.setItem(index, stack);

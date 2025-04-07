@@ -45,7 +45,7 @@ public class LobbyInventory {
         ItemMeta diamondMeta = diamond.getItemMeta();
 
         if(vote == true) {
-            diamondMeta.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
+            diamondMeta.addEnchant(Enchantment.AQUA_AFFINITY, 1, true);
         }
         diamondMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         diamondMeta.setDisplayName("Vote Now!");
